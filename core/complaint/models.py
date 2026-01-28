@@ -5,10 +5,10 @@ import uuid
 # Create your models here.
 
 class Department(models.Model):
-    department = models.CharField(max_length=150)
+    name = models.CharField(max_length=150)
 
     def __str__(self):
-        return self.department
+        return self.name
     
     
 class Complaint_Category(models.Model):
@@ -32,8 +32,9 @@ class Complaint(models.Model):
     department = models.ForeignKey(Department, on_delete=models.PROTECT)
     category = models.ForeignKey(Complaint_Category, on_delete=models.PROTECT)
     description = models.TextField()
-    attachment = models.FileField(upload_to='complaint_attachments/')
+    attachment = models.FileField(upload_to='complaint_attachments/', blank=True, null=True)
     status = models.CharField(choices=status_choices, default='open', max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     # overwriting the django save() function
     def save(self, *args, **kwargs):
@@ -43,7 +44,7 @@ class Complaint(models.Model):
             # .hex() is used to remove the hyphens or also called dash from the generated unique ID
             # [:10] limits the length of the UUID to 10 characters
             # .upper() to convert the obtained ID into uppercase
-        super().save(*args, **kwargs)# calling django's original save() function to actually save the data in the database, without this data won't get saved
+        super().save(*args, **kwargs) # calling django's original save() function to actually save the data in the database, without this data won't get saved
     
     def __str__(self):
         return f"{self.complaint_id} | {self.full_name} | {self.status}"

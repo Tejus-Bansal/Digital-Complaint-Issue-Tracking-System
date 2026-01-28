@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'client_dashboard',
     'staff_dashboard',
     'home',
+    'complaint',
 ]
 
 MIDDLEWARE = [

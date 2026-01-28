@@ -20,6 +20,7 @@ from register.views import *
 from home.views import *
 from client_dashboard.views import *
 from staff_dashboard.views import *
+from complaint.views import *
 from django.urls import path
 
 urlpatterns = [
@@ -28,5 +29,6 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('client-dashboard/', client_dashboard, name='client_dashboard'),
     path('staff-dashboard/', staff_dashboard, name='staff_dashboard'),
+    path('complaint/', complaint, name='complaint'),
     path('admin/', admin.site.urls),
 ]
